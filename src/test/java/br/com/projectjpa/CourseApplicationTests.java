@@ -1,10 +1,10 @@
-package br.com.projetojpa;
+package br.com.projectjpa;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProjetoJpaCourseApplicationTests {
+class CourseApplicationTests {
 
     @Test
     void contextLoads() {
