@@ -2,8 +2,8 @@ package br.com.projectjpa.services;
 
 import br.com.projectjpa.model.User;
 import br.com.projectjpa.repositories.UserRepository;
-import br.com.projectjpa.services.exceptions.DatabaseException;
-import br.com.projectjpa.services.exceptions.ResourceNotFoundException;
+import br.com.projectjpa.exceptions.DatabaseException;
+import br.com.projectjpa.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;

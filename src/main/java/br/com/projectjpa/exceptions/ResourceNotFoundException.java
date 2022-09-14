@@ -1,4 +1,4 @@
-package br.com.projectjpa.services.exceptions;
+package br.com.projectjpa.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;

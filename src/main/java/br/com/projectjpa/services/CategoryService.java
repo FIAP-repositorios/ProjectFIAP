@@ -2,9 +2,9 @@ package br.com.projectjpa.services;
 
 import br.com.projectjpa.exceptions.InternalServerErrorException;
 import br.com.projectjpa.exceptions.NotFoundException;
+import br.com.projectjpa.exceptions.ResourceNotFoundException;
 import br.com.projectjpa.model.Category;
 import br.com.projectjpa.repositories.CategoryRepository;
-import br.com.projectjpa.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +27,14 @@ public class CategoryService {
         }
     }
 
-    public Category findById(long id) {
-        Optional<Category> obj = repository.findById(id);
+    public Category findById(long id) throws NotFoundException {
+        Category category = repository.findById(id)
+                .orElse(null);
 
-        return obj.get();
+        if (category == null) {
+            throw new NotFoundException("Category not found");
+        }
+
+        return category;
     }
 }

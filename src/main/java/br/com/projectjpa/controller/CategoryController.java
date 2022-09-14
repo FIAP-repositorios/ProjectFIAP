@@ -3,6 +3,7 @@ package br.com.projectjpa.controller;
 import br.com.projectjpa.entities.MessagePattern;
 import br.com.projectjpa.exceptions.InternalServerErrorException;
 import br.com.projectjpa.exceptions.NotFoundException;
+import br.com.projectjpa.exceptions.ResourceNotFoundException;
 import br.com.projectjpa.model.Category;
 import br.com.projectjpa.model.Order;
 import br.com.projectjpa.services.CategoryService;
@@ -42,8 +43,24 @@ public class CategoryController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Category> findById(@PathVariable Long id) {
-        Category obj = categoryService.findById(id);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity findById(@PathVariable Long id) {
+        try {
+            Category obj = categoryService.findById(id);
+
+            return new ResponseEntity(
+                    obj,
+                    HttpStatus.OK
+            );
+        } catch (NotFoundException error) {
+            return new ResponseEntity(
+                    new MessagePattern("Category not found."),
+                    HttpStatus.NOT_FOUND
+            );
+        } catch (Exception error) {
+            return new ResponseEntity(
+                    new MessagePattern("Internal server error \n" + error.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
     }
 }

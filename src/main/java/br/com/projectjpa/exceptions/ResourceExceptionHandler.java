@@ -1,7 +1,5 @@
 package br.com.projectjpa.exceptions;
 
-import br.com.projectjpa.services.exceptions.DatabaseException;
-import br.com.projectjpa.services.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
