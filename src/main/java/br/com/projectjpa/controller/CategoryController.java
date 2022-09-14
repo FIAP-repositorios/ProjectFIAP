@@ -1,10 +1,14 @@
 package br.com.projectjpa.controller;
 
+import br.com.projectjpa.entities.MessagePattern;
+import br.com.projectjpa.exceptions.InternalServerErrorException;
+import br.com.projectjpa.exceptions.NotFoundException;
 import br.com.projectjpa.model.Category;
 import br.com.projectjpa.model.Order;
 import br.com.projectjpa.services.CategoryService;
 import br.com.projectjpa.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +26,19 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<List<Category>> findAll() {
-        List<Category> list = categoryService.findAll();
-        return ResponseEntity.ok().body(list);
+        try {
+            List<Category> list = categoryService.findAll();
+
+            return new ResponseEntity(
+                    list,
+                    HttpStatus.OK
+            );
+        } catch (InternalServerErrorException error) {
+            return new ResponseEntity(
+                    new MessagePattern("Internal server error \n" + error.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
     }
 
     @GetMapping(value = "/{id}")

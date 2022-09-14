@@ -1,4 +1,4 @@
-package br.com.projectjpa.controller.exceptions;
+package br.com.projectjpa.exceptions;
 
 import br.com.projectjpa.services.exceptions.DatabaseException;
 import br.com.projectjpa.services.exceptions.ResourceNotFoundException;

@@ -1,4 +1,4 @@
-package br.com.projectjpa.controller.exceptions;
+package br.com.projectjpa.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
