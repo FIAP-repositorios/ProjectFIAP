@@ -1,9 +1,8 @@
 package br.com.projectjpa.services;
 
+import br.com.projectjpa.exceptions.*;
 import br.com.projectjpa.model.User;
 import br.com.projectjpa.repositories.UserRepository;
-import br.com.projectjpa.exceptions.DatabaseException;
-import br.com.projectjpa.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -19,17 +18,36 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    public List<User> findAll() {
-        return repository.findAll();
+    public List<User> findAll() throws InternalServerErrorException {
+        try {
+            return repository.findAll();
+        } catch (Exception error) {
+            throw new InternalServerErrorException(error.getMessage());
+        }
     }
 
-    public User findById(long id) {
-        Optional<User> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+    public User findById(long id) throws NotFoundException {
+        User user = repository.findById(id).orElse(null);
+
+        if (user == null) {
+            throw new NotFoundException("User not found");
+        }
+
+        return user;
     }
 
-    public User insert(User obj) {
-        return repository.save(obj);
+    public User insert(User obj) throws InternalServerErrorException, AlreadyExistsException {
+        User user = repository.findByEmail(obj.getEmail());
+
+        if (user == null) {
+            try {
+                return repository.save(obj);
+            } catch (Exception error) {
+                throw new InternalServerErrorException(error.getMessage());
+            }
+        } else {
+            throw new AlreadyExistsException("User already exists");
+        }
     }
 
     public void delete(Long id) {
