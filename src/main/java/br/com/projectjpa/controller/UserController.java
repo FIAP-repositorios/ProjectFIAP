@@ -4,10 +4,12 @@ import br.com.projectjpa.entities.MessagePattern;
 import br.com.projectjpa.exceptions.AlreadyExistsException;
 import br.com.projectjpa.exceptions.InternalServerErrorException;
 import br.com.projectjpa.exceptions.NotFoundException;
+import br.com.projectjpa.exceptions.ResourceNotFoundException;
 import br.com.projectjpa.model.Category;
 import br.com.projectjpa.model.User;
 import br.com.projectjpa.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -84,13 +86,27 @@ public class UserController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        userService.delete(id);
-        return ResponseEntity.noContent().build();
+        try {
+            userService.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (ResourceNotFoundException | DataIntegrityViolationException error) {
+            return new ResponseEntity(
+                    new MessagePattern("Internal server error \n" + error.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj) {
-        obj = userService.update(id, obj);
-        return ResponseEntity.ok().body(obj);
+        try {
+            obj = userService.update(id, obj);
+            return ResponseEntity.ok().body(obj);
+        } catch (ResourceNotFoundException error) {
+            return new ResponseEntity(
+                    new MessagePattern("Internal server error \n" + error.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
     }
 }
