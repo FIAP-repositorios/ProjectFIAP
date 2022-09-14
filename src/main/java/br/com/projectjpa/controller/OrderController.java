@@ -1,8 +1,12 @@
 package br.com.projectjpa.controller;
 
+import br.com.projectjpa.entities.MessagePattern;
+import br.com.projectjpa.exceptions.InternalServerErrorException;
+import br.com.projectjpa.exceptions.NotFoundException;
 import br.com.projectjpa.model.Order;
 import br.com.projectjpa.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,13 +24,40 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<List<Order>> findAll() {
-        List<Order> list = orderService.findAll();
-        return ResponseEntity.ok().body(list);
+        try {
+            List<Order> orders = orderService.findAll();
+
+            return new ResponseEntity(
+                    orders,
+                    HttpStatus.OK
+            );
+        } catch (InternalServerErrorException error) {
+            return new ResponseEntity(
+                    new MessagePattern("Internal server error \n" + error.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Order> findById(@PathVariable Long id) {
-        Order obj = orderService.findById(id);
-        return ResponseEntity.ok().body(obj);
+        try {
+            Order order = orderService.findById(id);
+
+            return new ResponseEntity(
+                    order,
+                    HttpStatus.OK
+            );
+        } catch (NotFoundException error) {
+            return new ResponseEntity(
+                    new MessagePattern(error.getMessage()),
+                    HttpStatus.NOT_FOUND
+            );
+        } catch (Exception error) {
+            return new ResponseEntity(
+                    new MessagePattern("Internal server error \n" + error.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
     }
 }

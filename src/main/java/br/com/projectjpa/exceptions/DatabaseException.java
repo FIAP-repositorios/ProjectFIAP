@@ -1,4 +1,4 @@
-package br.com.projectjpa.services.exceptions;
+package br.com.projectjpa.exceptions;
 
 import javax.xml.crypto.Data;
 
