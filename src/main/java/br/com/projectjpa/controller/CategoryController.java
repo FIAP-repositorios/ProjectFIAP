@@ -28,10 +28,10 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<List<Category>> findAll() {
         try {
-            List<Category> list = categoryService.findAll();
+            List<Category> categories = categoryService.findAll();
 
             return new ResponseEntity(
-                    list,
+                    categories,
                     HttpStatus.OK
             );
         } catch (InternalServerErrorException error) {
@@ -45,10 +45,10 @@ public class CategoryController {
     @GetMapping(value = "/{id}")
     public ResponseEntity findById(@PathVariable Long id) {
         try {
-            Category obj = categoryService.findById(id);
+            Category category = categoryService.findById(id);
 
             return new ResponseEntity(
-                    obj,
+                    category,
                     HttpStatus.OK
             );
         } catch (NotFoundException error) {
