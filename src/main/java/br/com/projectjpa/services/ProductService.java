@@ -1,5 +1,7 @@
 package br.com.projectjpa.services;
 
+import br.com.projectjpa.exceptions.InternalServerErrorException;
+import br.com.projectjpa.exceptions.NotFoundException;
 import br.com.projectjpa.model.Product;
 import br.com.projectjpa.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,21 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
-    public List<Product> findAll() {
-        return repository.findAll();
+    public List<Product> findAll() throws InternalServerErrorException {
+        try {
+            return repository.findAll();
+        } catch (Exception error) {
+            throw new InternalServerErrorException(error.getMessage());
+        }
     }
 
-    public Product findById(long id) {
-        Optional<Product> obj = repository.findById(id);
-        return obj.get();
+    public Product findById(long id) throws NotFoundException {
+        Product product = repository.findById(id).orElse(null);
+
+        if (product == null) {
+            throw new NotFoundException("Product not found");
+        }
+
+        return product;
     }
 }

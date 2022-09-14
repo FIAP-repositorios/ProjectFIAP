@@ -50,7 +50,7 @@ public class OrderController {
             );
         } catch (NotFoundException error) {
             return new ResponseEntity(
-                    new MessagePattern("Order not found."),
+                    new MessagePattern(error.getMessage()),
                     HttpStatus.NOT_FOUND
             );
         } catch (Exception error) {

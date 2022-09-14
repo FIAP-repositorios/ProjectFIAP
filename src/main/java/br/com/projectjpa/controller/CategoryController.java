@@ -53,7 +53,7 @@ public class CategoryController {
             );
         } catch (NotFoundException error) {
             return new ResponseEntity(
-                    new MessagePattern("Category not found."),
+                    new MessagePattern(error.getMessage()),
                     HttpStatus.NOT_FOUND
             );
         } catch (Exception error) {
