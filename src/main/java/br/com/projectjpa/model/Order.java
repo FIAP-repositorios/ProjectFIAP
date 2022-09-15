@@ -2,6 +2,9 @@ package br.com.projectjpa.model;
 
 import br.com.projectjpa.model.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +13,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable {
@@ -32,8 +38,6 @@ public class Order implements Serializable {
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
 
-    public Order() {}
-
     public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;
@@ -41,50 +45,10 @@ public class Order implements Serializable {
         this.client = client;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Instant getMoment() {
-        return moment;
-    }
-
-    public void setMoment(Instant moment) {
-        this.moment = moment;
-    }
-
-    public OrderStatus getOrderStatus() {
-        return OrderStatus.valueOf(orderStatus);
-    }
-
     public void setOrderStatus(OrderStatus orderStatus) {
         if (orderStatus != null) {
             this.orderStatus = orderStatus.getCode();
         }
-    }
-
-    public User getClient() {
-        return client;
-    }
-
-    public void setClient(User client) {
-        this.client = client;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
-    public Set<OrderItem> getItems() {
-        return items;
     }
 
     public Double getTotal() {
