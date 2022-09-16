@@ -1,8 +1,8 @@
 package br.com.projectjpa.services;
 
 import br.com.projectjpa.exceptions.*;
-import br.com.projectjpa.model.User;
-import br.com.projectjpa.repositories.UserRepository;
+import br.com.projectjpa.model.Buyer;
+import br.com.projectjpa.repositories.BuyerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -10,15 +10,13 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class UserService {
-
+public class BuyerService {
     @Autowired
-    private UserRepository repository;
+    private BuyerRepository repository;
 
-    public List<User> findAll() throws InternalServerErrorException {
+    public List<Buyer> findAll() throws InternalServerErrorException {
         try {
             return repository.findAll();
         } catch (Exception error) {
@@ -26,17 +24,17 @@ public class UserService {
         }
     }
 
-    public User findById(long id) throws NotFoundException {
-        User user = repository.findById(id).orElse(null);
+    public Buyer findById(long id) throws NotFoundException {
+        Buyer buyer = repository.findById(id).orElse(null);
 
-        if (user == null) {
-            throw new NotFoundException("User not found");
+        if (buyer == null) {
+            throw new NotFoundException("Buyer not found");
         }
 
-        return user;
+        return buyer;
     }
 
-    public User insert(User obj) throws InternalServerErrorException, AlreadyExistsException {
+    public Buyer insert(Buyer obj) throws InternalServerErrorException, AlreadyExistsException {
         return repository.save(obj);
     }
 
@@ -50,9 +48,9 @@ public class UserService {
         }
     }
 
-    public User update(Long id, User obj) {
+    public Buyer update(Long id, Buyer obj) {
         try {
-            User entity = repository.getOne(id);
+            Buyer entity = repository.getOne(id);
             updateData(entity, obj);
             return repository.save(entity);
         } catch (EntityNotFoundException e) {
@@ -60,9 +58,14 @@ public class UserService {
         }
     }
 
-    private void updateData(User entity, User obj) {
-        entity.setName(obj.getName());
+    private void updateData(Buyer entity, Buyer obj) {
         entity.setEmail(obj.getEmail());
+        entity.setName(obj.getName());
+        entity.setPassword(obj.getPassword());
         entity.setPhone(obj.getPhone());
+        entity.setUsername(obj.getUsername());
+        entity.setAdress(obj.getAdress());
+        entity.setCep(obj.getCep());
+        entity.setCnpj(obj.getCnpj());
     }
 }

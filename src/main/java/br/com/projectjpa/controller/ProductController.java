@@ -3,7 +3,6 @@ package br.com.projectjpa.controller;
 import br.com.projectjpa.entities.MessagePattern;
 import br.com.projectjpa.exceptions.InternalServerErrorException;
 import br.com.projectjpa.exceptions.NotFoundException;
-import br.com.projectjpa.model.Category;
 import br.com.projectjpa.model.Product;
 import br.com.projectjpa.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,8 +5,8 @@ import br.com.projectjpa.exceptions.AlreadyExistsException;
 import br.com.projectjpa.exceptions.InternalServerErrorException;
 import br.com.projectjpa.exceptions.NotFoundException;
 import br.com.projectjpa.exceptions.ResourceNotFoundException;
-import br.com.projectjpa.model.User;
-import br.com.projectjpa.services.UserService;
+import br.com.projectjpa.model.Buyer;
+import br.com.projectjpa.services.BuyerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -18,19 +18,19 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserController {
+@RequestMapping(value = "/buyers")
+public class BuyerController {
 
     @Autowired
-    private UserService userService;
+    private BuyerService buyerService;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<List<Buyer>> findAll() {
         try {
-            List<User> users = userService.findAll();
+            List<Buyer> buyers = buyerService.findAll();
 
             return new ResponseEntity(
-                    users,
+                    buyers,
                     HttpStatus.OK
             );
         } catch (InternalServerErrorException error) {
@@ -42,12 +42,12 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> findById(@PathVariable Long id) {
+    public ResponseEntity<Buyer> findById(@PathVariable Long id) {
         try {
-            User user = userService.findById(id);
+            Buyer buyer = buyerService.findById(id);
 
             return new ResponseEntity(
-                    user,
+                    buyer,
                     HttpStatus.OK
             );
         } catch (NotFoundException error) {
@@ -64,9 +64,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> insert(@RequestBody User obj) {
+    public ResponseEntity<Buyer> insert(@RequestBody Buyer obj) {
         try {
-            obj = userService.insert(obj);
+            obj = buyerService.insert(obj);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 
             return ResponseEntity.created(uri).body(obj);
@@ -86,7 +86,7 @@ public class UserController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         try {
-            userService.delete(id);
+            buyerService.delete(id);
             return ResponseEntity.noContent().build();
         } catch (ResourceNotFoundException | DataIntegrityViolationException error) {
             return new ResponseEntity(
@@ -97,9 +97,9 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj) {
+    public ResponseEntity<Buyer> update(@PathVariable Long id, @RequestBody Buyer obj) {
         try {
-            obj = userService.update(id, obj);
+            obj = buyerService.update(id, obj);
             return ResponseEntity.ok().body(obj);
         } catch (ResourceNotFoundException error) {
             return new ResponseEntity(

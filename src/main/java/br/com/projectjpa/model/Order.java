@@ -12,8 +12,8 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "tb_order")
 @NoArgsConstructor
+@Table(name = "tb_order")
 public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -25,8 +25,8 @@ public class Order implements Serializable {
     private Integer orderStatus;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
-    private User client;
+    @JoinColumn(name = "buyer_id")
+    private Buyer buyer;
 
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
@@ -34,11 +34,11 @@ public class Order implements Serializable {
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
 
-    public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
+    public Order(Long id, Instant moment, OrderStatus orderStatus, Buyer buyer) {
         this.id = id;
         this.moment = moment;
         setOrderStatus(orderStatus);
-        this.client = client;
+        this.buyer = buyer;
     }
 
     public Long getId() {
@@ -67,12 +67,12 @@ public class Order implements Serializable {
         }
     }
 
-    public User getClient() {
-        return client;
+    public Buyer getBuyer() {
+        return buyer;
     }
 
-    public void setClient(User client) {
-        this.client = client;
+    public void setBuyer(Buyer buyer) {
+        this.buyer = buyer;
     }
 
     public Payment getPayment() {

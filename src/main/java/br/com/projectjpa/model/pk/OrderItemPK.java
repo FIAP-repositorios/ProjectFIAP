@@ -11,9 +11,9 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
 @Getter
 @Setter
+@Embeddable
 public class OrderItemPK implements Serializable {
     private static final long serialVersionUID = 1L;
 

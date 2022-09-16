@@ -10,8 +10,8 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "tb_product")
 @NoArgsConstructor
+@Table(name = "tb_product")
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -21,7 +21,7 @@ public class Product implements Serializable {
     private String name;
     private String description;
     private Double price;
-    private String imgUrl;
+    private String productUrl;
 
     @ManyToMany
     @JoinTable(name = "tb_product_category",
@@ -32,12 +32,12 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "id.product")
     private Set<OrderItem> items = new HashSet<>();
 
-    public Product(Long id, String name, String description, Double price, String imgUrl) {
+    public Product(Long id, String name, String description, Double price, String productUrl) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.imgUrl = imgUrl;
+        this.productUrl = productUrl;
     }
 
     public Long getId() {
@@ -72,12 +72,12 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String getProductUrl() {
+        return productUrl;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setProductUrl(String productUrl) {
+        this.productUrl = productUrl;
     }
     public Set<Category> getCategories() {
         return categories;
