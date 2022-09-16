@@ -2,6 +2,8 @@ package br.com.projectjpa.model.pk;
 
 import br.com.projectjpa.model.Order;
 import br.com.projectjpa.model.Product;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
@@ -10,6 +12,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
+@Getter
+@Setter
 public class OrderItemPK implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -20,22 +24,6 @@ public class OrderItemPK implements Serializable {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 
     @Override
     public boolean equals(Object o) {
