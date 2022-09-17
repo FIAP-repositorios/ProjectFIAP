@@ -17,7 +17,7 @@ import java.util.Objects;
 @Table(name = "tb_user")
 @DiscriminatorColumn(name = "TYPE")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class User implements Serializable {
+public abstract class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
