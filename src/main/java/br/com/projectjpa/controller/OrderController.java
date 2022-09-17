@@ -3,6 +3,7 @@ package br.com.projectjpa.controller;
 import br.com.projectjpa.entities.MessagePattern;
 import br.com.projectjpa.exceptions.AlreadyExistsException;
 import br.com.projectjpa.exceptions.InternalServerErrorException;
+import br.com.projectjpa.exceptions.NotFoundException;
 import br.com.projectjpa.model.Order;
 import br.com.projectjpa.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,28 @@ public class OrderController {
             return new ResponseEntity(
                     new MessagePattern(error.getMessage()),
                     HttpStatus.CONFLICT
+            );
+        } catch (InternalServerErrorException error) {
+            return new ResponseEntity(
+                    new MessagePattern("Internal server error \n" + error.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity delete(@PathVariable Long id) {
+        try {
+            orderService.delete(id);
+
+            return new ResponseEntity(
+                    new MessagePattern(id + " Deleted with success!"),
+                    HttpStatus.OK
+            );
+        } catch (NotFoundException error) {
+            return new ResponseEntity(
+                    new MessagePattern(error.getMessage()),
+                    HttpStatus.NOT_FOUND
             );
         } catch (InternalServerErrorException error) {
             return new ResponseEntity(

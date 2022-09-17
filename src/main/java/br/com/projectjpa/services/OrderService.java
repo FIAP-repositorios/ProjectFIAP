@@ -2,6 +2,7 @@ package br.com.projectjpa.services;
 
 import br.com.projectjpa.exceptions.AlreadyExistsException;
 import br.com.projectjpa.exceptions.InternalServerErrorException;
+import br.com.projectjpa.exceptions.NotFoundException;
 import br.com.projectjpa.model.Order;
 import br.com.projectjpa.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class OrderService {
 
         return order;
     }
-
+    
     public Order save(Order order) throws InternalServerErrorException, AlreadyExistsException {
         Order orderExists = this.findById(order.getId());
 
@@ -40,6 +41,20 @@ public class OrderService {
             }
         } else {
             throw new AlreadyExistsException("Order already exists");
+        }
+    }
+
+    public void delete(Long id) throws NotFoundException, InternalServerErrorException {
+        Order orderExists = this.findById(id);
+
+        if (orderExists != null) {
+            try {
+                repository.deleteById(id);
+            } catch (Exception e) {
+                throw new InternalServerErrorException("Internal server error");
+            }
+        } else {
+            throw new NotFoundException("Order not found");
         }
     }
 }
