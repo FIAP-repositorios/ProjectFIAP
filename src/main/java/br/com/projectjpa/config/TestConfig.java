@@ -14,8 +14,6 @@ import java.util.Arrays;
 public class TestConfig implements CommandLineRunner {
 
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private BuyerRepository buyerRepository;
     @Autowired
     private OrderRepository orderRepository;

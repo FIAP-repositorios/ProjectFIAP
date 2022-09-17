@@ -2,7 +2,6 @@ package br.com.projectjpa.services;
 
 import br.com.projectjpa.exceptions.AlreadyExistsException;
 import br.com.projectjpa.exceptions.InternalServerErrorException;
-import br.com.projectjpa.exceptions.NotFoundException;
 import br.com.projectjpa.model.Order;
 import br.com.projectjpa.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
