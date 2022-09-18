@@ -1,18 +1,20 @@
 package br.com.projectjpa.controller;
 
 import br.com.projectjpa.entities.MessagePattern;
+import br.com.projectjpa.exceptions.AlreadyExistsException;
 import br.com.projectjpa.exceptions.InternalServerErrorException;
 import br.com.projectjpa.exceptions.NotFoundException;
+import br.com.projectjpa.exceptions.ResourceNotFoundException;
 import br.com.projectjpa.model.Product;
 import br.com.projectjpa.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -54,6 +56,52 @@ public class ProductController {
                     HttpStatus.NOT_FOUND
             );
         } catch (Exception error) {
+            return new ResponseEntity(
+                    new MessagePattern("Internal server error \n" + error.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<Product> insert(@RequestBody Product obj) {
+        try {
+            obj = productService.insert(obj);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+
+            return ResponseEntity.created(uri).body(obj);
+        } catch (AlreadyExistsException error) {
+            return new ResponseEntity(
+                    new MessagePattern(error.getMessage()),
+                    HttpStatus.CONFLICT
+            );
+        } catch (InternalServerErrorException error) {
+            return new ResponseEntity(
+                    new MessagePattern("Internal server error \n" + error.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        try {
+            productService.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (ResourceNotFoundException | DataIntegrityViolationException error) {
+            return new ResponseEntity(
+                    new MessagePattern("Internal server error \n" + error.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product obj) {
+        try {
+            obj = productService.update(id, obj);
+            return ResponseEntity.ok().body(obj);
+        } catch (ResourceNotFoundException error) {
             return new ResponseEntity(
                     new MessagePattern("Internal server error \n" + error.getMessage()),
                     HttpStatus.INTERNAL_SERVER_ERROR
