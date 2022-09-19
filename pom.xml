@@ -10,11 +10,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>br.com.projectJPA</groupId>
-    <artifactId>projectJPA-course</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>projectJPA-Course</name>
-    <description>projectJPA-Course</description>
+    <groupId>br.com.projectgro</groupId>
+    <artifactId>AgroApplication</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    <name>ProjectGro</name>
+    <description>AgroApplication-Project</description>
 
     <properties>
         <java.version>1.8</java.version>
