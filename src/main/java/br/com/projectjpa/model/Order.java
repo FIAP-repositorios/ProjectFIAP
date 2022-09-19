@@ -28,17 +28,22 @@ public class Order implements Serializable {
     @JoinColumn(name = "buyer_id")
     private Buyer buyer;
 
+    @ManyToOne
+    @JoinColumn(name="seller_id")
+    private Seller seller;
+
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
 
-    public Order(Long id, Instant moment, OrderStatus orderStatus, Buyer buyer) {
+    public Order(Long id, Instant moment, OrderStatus orderStatus, Buyer buyer, Seller seller) {
         this.id = id;
         this.moment = moment;
         setOrderStatus(orderStatus);
         this.buyer = buyer;
+        this.seller = seller;
     }
 
     public Long getId() {
@@ -73,6 +78,14 @@ public class Order implements Serializable {
 
     public void setBuyer(Buyer buyer) {
         this.buyer = buyer;
+    }
+
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
     }
 
     public Payment getPayment() {
