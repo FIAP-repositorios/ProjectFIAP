@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -73,6 +74,24 @@ public class OrderController {
             return new ResponseEntity(
                     new MessagePattern(error.getMessage()),
                     HttpStatus.CONFLICT
+            );
+        } catch (InternalServerErrorException error) {
+            return new ResponseEntity(
+                    new MessagePattern("Internal server error \n" + error.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    @Transactional
+    @PatchMapping("/id/{id}/status/{status}")
+    public ResponseEntity updateOrderStatus(@PathVariable Long id, @PathVariable int status) {
+        try {
+           orderService.updateOrderStatus(id, status);
+
+            return new ResponseEntity(
+                    new MessagePattern("Status updated with success."),
+                    HttpStatus.OK
             );
         } catch (InternalServerErrorException error) {
             return new ResponseEntity(

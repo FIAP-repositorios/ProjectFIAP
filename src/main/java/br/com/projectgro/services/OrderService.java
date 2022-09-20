@@ -42,4 +42,12 @@ public class OrderService {
             throw new AlreadyExistsException("Order already exists");
         }
     }
+
+    public void updateOrderStatus(Long id, int status) throws InternalServerErrorException {
+        try {
+            repository.updateOrderStatus(id, status);
+        } catch (Exception error) {
+            throw new InternalServerErrorException(error.getMessage());
+        }
+    }
 }
