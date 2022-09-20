@@ -1,12 +1,12 @@
-package br.com.projectjpa.controller;
+package br.com.projectgro.controller;
 
-import br.com.projectjpa.entities.MessagePattern;
-import br.com.projectjpa.exceptions.AlreadyExistsException;
-import br.com.projectjpa.exceptions.InternalServerErrorException;
-import br.com.projectjpa.exceptions.NotFoundException;
-import br.com.projectjpa.exceptions.ResourceNotFoundException;
-import br.com.projectjpa.model.Seller;
-import br.com.projectjpa.services.SellerService;
+import br.com.projectgro.entities.MessagePattern;
+import br.com.projectgro.exceptions.AlreadyExistsException;
+import br.com.projectgro.exceptions.InternalServerErrorException;
+import br.com.projectgro.exceptions.NotFoundException;
+import br.com.projectgro.exceptions.ResourceNotFoundException;
+import br.com.projectgro.model.Seller;
+import br.com.projectgro.services.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;

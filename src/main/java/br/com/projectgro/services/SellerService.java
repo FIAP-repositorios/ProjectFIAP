@@ -1,8 +1,8 @@
-package br.com.projectjpa.services;
+package br.com.projectgro.services;
 
-import br.com.projectjpa.exceptions.*;
-import br.com.projectjpa.model.Seller;
-import br.com.projectjpa.repositories.SellerRepository;
+import br.com.projectgro.exceptions.*;
+import br.com.projectgro.model.Seller;
+import br.com.projectgro.repositories.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
