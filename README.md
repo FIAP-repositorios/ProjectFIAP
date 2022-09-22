@@ -1,4 +1,4 @@
-<h1 style="text-align: center">AgroTech - FIAP</h1>
+<h1 aling="center">AgroTech - FIAP</h1>
 
 <img style="width: 100%" src="./git-images/Logo.svg" alt="img-profile"/>
 
