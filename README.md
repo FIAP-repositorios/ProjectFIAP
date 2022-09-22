@@ -2,7 +2,7 @@
 
 ## Para instalá-lo em sua máquina, siga os passos abaixo:
 
-1° - Faça o git clone do projeto e use sua versão mais atualizada da branch "master";
+1° - Faça o git clone do projeto e use sua versão mais atualizada da branch "master"
 
 2° - Rode a aplicação através da classe 'GroApplication'
 
