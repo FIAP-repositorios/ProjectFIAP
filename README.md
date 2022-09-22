@@ -14,12 +14,15 @@
 
 ##  Requisições da aplicação:
 
+### Usuários:
+
 ---
-***Criar usuário comprador:***
 
-- Requisição POST - URL: **localhost:8080/buyers**
+***Comprador:***
 
-Exemplo: 
+- Criar usuário comprador - Requisição POST: **http://localhost:8080/buyers**
+
+***Body - JSON:***
 
 ```json
 {
@@ -34,25 +37,29 @@ Exemplo:
 }
 ```
 
----
+***Vendedor:***
 
-***Checar os pedidos:*** 
-- Requisição GET - URL: **localhost:8080/orders**
-
---- 
-
-***Atualizar status de pedido:***
-
-- Informar o ID do pedido e o código do status que está em: `br.com.projectgro.model.enums.OrderStatus`.
-- Requisição PATCH - URL: **localhost:8080/orders/id/{idPedido}/status/{idStatus}**
+- Buscar um vendedor por ID - Requisição GET: **http://localhost:8080/sellers/{id}**
 
 --- 
-***Checar um vendedor por ID:***
+### Pedidos
 
-- Requisição GET - URL: **localhost:8080/sellers/{id}**
+- Buscar todos os pedidos - Requisição GET: **http://localhost:8080/orders**
+
+- Atualizar status de pedido: Informar o ID do pedido e o código do status que está em: `br.com.projectgro.model.enums.OrderStatus`. Requisição PATCH: **http://localhost:8080/orders/id/{idPedido}/status/{idStatus}**
+
+- Deletar um pedido - Requisição DELETE: **http://localhost:8080/orders/{id}**
 
 ---
-**IMPORTANTE**
+
+### Categorias
+
+- Buscar todas as categorias - Requisição GET: **http://localhost:8080/categories**
+- Buscar uma categoria por id - Requisição GET: **http://localhost:8080/categories/{id}**
+
+---
+
+## IMPORTANTE
 
 _Caso você queira utilizar o seu banco da FIAP, apenas troque o RM e a SENHA em ***application.properties***._
 
