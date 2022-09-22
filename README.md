@@ -49,7 +49,7 @@ BODY: JSON
   "username": "jorge23",
   "email": "jorge23@gmail.com",
   "phone": "8238387323732",
-  "password": "swgeygwyegw",
+  "password": "ssenha22egw",
   "cnpj": "788334638728732",
   "adress": "Rua Messias Barroso Veras",
   "cep": "623750000"
