@@ -22,7 +22,7 @@
 
 - Criar usuário comprador - Requisição POST: **http://localhost:8080/buyers**
 
-***Body - JSON:***
+***BODY: JSON:***
 
 ```json
 {
@@ -38,6 +38,23 @@
 ```
 
 ***Vendedor:***
+
+- Criar usuário vendedor - Requisição POST: **http://localhost:8080/sellers**
+
+BODY: JSON
+
+```json
+{
+  "name": "Jorge Sales",
+  "username": "jorge23",
+  "email": "jorge23@gmail.com",
+  "phone": "8238387323732",
+  "password": "swgeygwyegw",
+  "cnpj": "788334638728732",
+  "adress": "Rua Messias Barroso Veras",
+  "cep": "623750000"
+}
+```
 
 - Buscar um vendedor por ID - Requisição GET: **http://localhost:8080/sellers/{id}**
 
