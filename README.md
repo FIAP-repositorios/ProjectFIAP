@@ -4,13 +4,15 @@
 
 ## Para instalá-lo em sua máquina, siga os passos abaixo:
 
-1° - Faça o git clone do projeto e use sua versão mais atualizada da branch "master"
+1° - Faça o git clone do projeto e use sua versão mais atualizada da branch "master";
 
-2° - Rode a aplicação através da classe 'GroApplication'
+2° - Rode a aplicação através da classe ***GroApplication***;
 
-3° - Estamos utilizando o banco da Oracle da FIAP de um dos nossos integrantes para salvar nossas informações!
+3° - Estamos utilizando o banco da Oracle da FIAP de um dos nossos integrantes para salvar nossas informações;
 
-4° - Para fazer as requisições utilize o Postman, aqui estão algumas delas:
+4° - Teste as requisições no Postman/Insomnia ou alguma ferramenta de consumo de apis de sua preferência.
+
+##  Requisições da aplicação:
 
 ---
 ***Criar usuário comprador:***
