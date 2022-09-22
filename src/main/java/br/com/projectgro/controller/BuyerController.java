@@ -64,7 +64,7 @@ public class BuyerController {
     }
 
     @PostMapping
-    public ResponseEntity<Buyer> insert(@RequestBody Buyer obj) {
+    public ResponseEntity<Buyer> save(@RequestBody Buyer obj) {
         try {
             obj = buyerService.insert(obj);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();

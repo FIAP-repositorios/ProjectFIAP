@@ -21,9 +21,7 @@ import java.util.List;
 public class Seller extends User{
 
     private String cnpj;
-
     private String adress;
-
     private String cep;
 
     @JsonIgnore

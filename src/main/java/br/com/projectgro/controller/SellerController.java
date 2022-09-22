@@ -64,7 +64,7 @@ public class SellerController {
     }
 
     @PostMapping
-    public ResponseEntity<Seller> insert(@RequestBody Seller obj) {
+    public ResponseEntity<Seller> save(@RequestBody Seller obj) {
         try {
             obj = sellerService.insert(obj);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
