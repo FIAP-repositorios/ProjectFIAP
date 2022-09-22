@@ -41,7 +41,7 @@ Exemplo:
 
 ***Atualizar status de Pedido:***
 
-- Para atualizar o status do pedido, informar o id do Pedido e o código do status que está em `br.com.projectgro.model.enums.OrderStatus`) 
+- Para atualizar o status do pedido, informar o id do Pedido e o código do status que está em `br.com.projectgro.model.enums.OrderStatus`.
 - Requisição PATCH - URL: **localhost:8080/orders/id/{idPedido}/status/{idStatus}**
 
 --- 
