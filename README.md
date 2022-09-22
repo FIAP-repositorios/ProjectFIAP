@@ -1,6 +1,6 @@
 <h1 align="center">AgroTech - FIAP</h1>
 
-<img style="width: 100%" src="./git-images/Logo.svg" alt="img-profile"/>
+<img style="width: 100%" src="./git-images/Gro-Logo.svg" alt="img-profile"/>
 
 ## Para instalá-lo em sua máquina, siga os passos abaixo:
 
