@@ -41,7 +41,7 @@
 
 - Criar usuário vendedor - Requisição POST: **http://localhost:8080/sellers**
 
-BODY: JSON
+***BODY: JSON***
 
 ```json
 {
