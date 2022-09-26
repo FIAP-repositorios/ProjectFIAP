@@ -16,6 +16,8 @@
 
 ### Usuários:
 
+---
+
 ***Comprador:***
 
 - Criar usuário comprador - Requisição POST: **http://localhost:8080/buyers**
